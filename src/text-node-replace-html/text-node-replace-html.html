@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+  <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0, user-scalable=no" />
+  <title>text-node-replace-html</title>
+  <style type="text/css">
+  .hd {
+    color: blue;
+  }
+  </style>
+  <script>
+  </script>
+</head>
+
+<body>
+  <div>
+    <div id="demo1">text-node textA TextB TEXTc</div>
+  </div>
+
+  <script>
+    var list = demo1.childNodes
+    console.log(list)
+    // array-lick to array
+    list = [].slice.call(list)
+
+    list.forEach(function (node){
+      console.log(node)
+
+      let text = node.textContent
+      let regex = new RegExp('text', 'gi')
+      var tagLeft = '<span class="hd">'
+      var tagRight = '</span>'
+      var text2 = text.replace(regex, function (replacement){
+        return tagLeft + replacement + tagRight
+      })
+      var span = document.createElement('span')
+      span.innerHTML = text2
+
+      node.parentNode.replaceChild(span, node)
+
+    })
+
+  </script>
+</body>
+
+</html>
