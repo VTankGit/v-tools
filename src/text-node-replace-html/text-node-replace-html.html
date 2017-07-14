@@ -44,10 +44,17 @@
       // no more span tag to wrapper the text
       var nodes = span.childNodes
       nodes = [].slice.call(nodes)
-      nodes.forEach(function (node2){
-        node.parentNode.insertBefore(node2, node)
+      // nodes.forEach(function (node2){
+      //   node.parentNode.insertBefore(node2, node)
+      // })
+      // node.parentNode.removeChild(node)
+
+      // maybe this is the best way to replace text node with multip dom node and text
+      var fragment = document.createDocumentFragment()
+      nodes.forEach(function (node) {
+        fragment.appendChild(node)
       })
-      node.parentNode.removeChild(node)
+      node.parentNode.replaceChild(fragment, node)
 
     })
 
