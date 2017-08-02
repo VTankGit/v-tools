@@ -1,0 +1,89 @@
+<html>
+<head>
+  <meta charset="UTF-8">
+  <title>Document</title>
+</head>
+<body>
+  <div id="result">running...</div>
+
+  <script>
+    function stringPlus (string) {
+      var prefix = 'abc'
+      var postfix = 'xyz'
+      return prefix + string + postfix
+    }
+
+    function stringJoin (string) {
+      var prefix = 'abc'
+      var postfix = 'xyz'
+      return [prefix, string, postfix].join('')
+    }
+
+    // test
+    setTimeout(function () {
+      var count
+      count = 1
+      var t1 = Date.now()
+      while (count <= 100000) {
+        stringPlus('string')
+        count++
+      }
+      var t2 = Date.now()
+      console.log(t2 - t1)
+
+
+
+      count = 1
+      var t3 = Date.now()
+      while (count <= 100000) {
+        stringJoin('string')
+        count++
+      }
+      var t4 = Date.now()
+      console.log(t4 - t3)
+
+      result.innerHTML = 'stringPlus() time consuming:' + (t2 - t1) + '<br>stringJoin() time consuming:' + (t4 - t3)
+    }, 2000)
+
+    /*
+    test result (in setTimeout) :
+    Chrome 59.0.3071.115 (Windows 64bit)
+    2 vs 83
+    3 vs 86
+    2 vs 79
+    2 vs 84
+
+    Chrome/53.0.2785.146 (Android 6.0.1)
+    34 vs 1061
+    33 vs 1057
+    36 vs 1063
+    97 vs 248
+    94 vs 262
+    100 vs 146
+    63 vs 150
+    63 vs 151
+    53 vs 147
+
+    Safari/602.1 iOS 10.3
+    8 vs 55
+    13 vs 73
+    14 vs 73
+    13 vs 84
+    12 vs 79
+    12 vs 83
+    */
+
+    /*
+    test result (no setTimeout) :
+    Chrome 59.0.3071.115 (Windows 64bit)
+    7 vs 102
+    6 vs 106
+    4 vs 106
+    10 vs 101
+
+    no setTimeout maybe the browser engine is not well.
+    */
+
+  </script>
+</body>
+</html>
